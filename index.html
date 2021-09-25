@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-theme">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,6 +9,23 @@
     <title>Document</title>
   </head>
   <body>
+    <div class="full-screen welcome">
+      <h2 class="welcome__title title">reaction game</h2>
+      <button class="welcome__start-btn btn">get started</button>
+    </div>
+    <div class="full-screen game-manu">
+      <h2 class="game-manu__title title">select game time</h2>
+      <div class="game-manu__actions">
+        <button class="game-manu__time-btn btn">10 seconds</button>
+        <button class="game-manu__time-btn btn">20 seconds</button>
+        <button class="game-manu__time-btn btn">30 seconds</button>
+        <button class="game-manu__time-btn btn">60 seconds</button>
+      </div>
+    </div>
+    <div class="full-screen game">
+      <h2 class="game__title title">left - <span>00:00</span></h2>
+      <div class="game__board"></div>
+    </div>
     <script src="scripts.js"></script>
   </body>
 </html>
