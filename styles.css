@@ -66,6 +66,16 @@ body {
 }
 .game__board {
 }
+.theme-changer {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+}
+.theme-changer__icon {
+  color: #f7eb5e;
+}
+.material-icons {
+}
 @media (any-hover: hover) {
   .btn:hover {
     color: var(--hover-color);
