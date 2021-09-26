@@ -59,6 +59,7 @@ body {
   color: var(--font-color);
   border-radius: 3px;
   margin: 0 10px;
+  transition: 0.3s;
 }
 .game {
 }

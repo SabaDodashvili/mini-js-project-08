@@ -21,3 +21,4 @@ function initialState(themeName) {
 }
 
 localStorage.getItem('theme') !== 'null' ? initialState(localStorage.getItem('theme')) : initialState('light-theme');
+//=========================================== T H E M E  C H A N G E R ==================================================
