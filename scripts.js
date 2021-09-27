@@ -22,11 +22,28 @@ function initialState(themeName) {
 
 localStorage.getItem('theme') !== 'null' ? initialState(localStorage.getItem('theme')) : initialState('light-theme');
 //=========================================== T H E M E  C H A N G E R ==================================================
-let actionsBtns = document.querySelector('.game-manu__actions');
-let startBtn = document.querySelector('.welcome__start-btn');
-let leftTime = document.querySelector('.game__title span');
-let screens = document.querySelectorAll('.full-screen');
-let time;
+const cucikebi = {
+  gregorebi: [
+    'imgs/gregori/01.jpg',
+    'imgs/gregori/02.jpg',
+    'imgs/gregori/03.jpg',
+    'imgs/gregori/04.jpg',
+    'imgs/gregori/05.jpg',
+    'imgs/gregori/06.jpg',
+    'imgs/gregori/07.jpg',
+  ],
+  uchavebi: ['imgs/uchava/01.jpg', 'imgs/uchava/02.jpg', 'imgs/uchava/03.jpg', 'imgs/uchava/04.jpg'],
+  vladebi: ['imgs/vladi/01.jpg', 'imgs/vladi/02.jpg'],
+  finisebi: ['imgs/finisi/01.jpg', 'imgs/finisi/02.jpg', 'imgs/finisi/03.jpg', 'imgs/finisi/04.jpg', 'imgs/finisi/05.jpg'],
+};
+const actionsBtns = document.querySelector('.game-manu__actions');
+const startBtn = document.querySelector('.welcome__start-btn');
+const leftTime = document.querySelector('.game__title span');
+const gameBoard = document.querySelector('.game__board');
+const screens = document.querySelectorAll('.full-screen');
+let timeInterval;
+let time = 0;
+let score = 0;
 
 startBtn.addEventListener('click', (e) => {
   const currentScreen = e.target.closest('.full-screen');
@@ -35,25 +52,62 @@ startBtn.addEventListener('click', (e) => {
 
 actionsBtns.addEventListener('click', chooseTime);
 
+gameBoard.addEventListener('click', (e) => {
+  if (e.target.classList.contains('circle')) {
+    score++;
+    e.target.remove();
+    crateCircle();
+  }
+});
+
 function chooseTime(e) {
-  const currentScreen = e.target.closest('.full-screen');
-  let seconds = parseInt(e.target.getAttribute('data-time'));
-  time = seconds;
-  currentScreen.classList.add('up');
-  setInterval(() => {
+  if (e.target.classList.contains('game-manu__time-btn')) {
+    const currentScreen = e.target.closest('.full-screen');
+    let seconds = parseInt(e.target.getAttribute('data-time'));
+    time = seconds;
+    currentScreen.classList.add('up');
     startGame();
-  }, 1000);
+  }
 }
 
 function startGame() {
-  if (time < 0) {
-    return;
-  } else {
-    if (time >= 10) {
-      leftTime.textContent = `00:${time}`;
-    } else {
-      leftTime.textContent = `00:0${time}`;
-    }
-    time--;
+  timeInterval = setInterval(decreaseTime, 1000);
+  crateCircle();
+}
+
+function decreaseTime() {
+  time--;
+  if (time === 0) {
+    leftTime.textContent = `00:0${time}`;
+    finishGame();
   }
+  if (time >= 10) {
+    leftTime.textContent = `00:${time}`;
+  } else {
+    leftTime.textContent = `00:0${time}`;
+  }
+}
+
+function crateCircle() {
+  let circle = document.createElement('div');
+  let size = getRandomNumber(25, 50);
+  let { width, height } = gameBoard.getBoundingClientRect();
+  const x = getRandomNumber(0, width - size);
+  const y = getRandomNumber(0, height - size);
+
+  circle.classList.add('circle');
+  circle.style.width = `${size}px`;
+  circle.style.height = `${size}px`;
+  circle.style.top = `${y}px`;
+  circle.style.left = `${x}px`;
+
+  gameBoard.append(circle);
+}
+
+function finishGame() {
+  clearInterval(timeInterval);
+  gameBoard.innerHTML = `<h3 class="game__score-title">score: <span>${score}</span></h3>`;
+}
+function getRandomNumber(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
 }

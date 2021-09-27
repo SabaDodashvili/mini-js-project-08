@@ -11,12 +11,16 @@ body {
   --hover-color: #aceae8;
   --main-color: #919fb3;
   --second-color: #5e94d4;
+  --board-color-1: #429bc5;
+  --board-color-2: #6c7c86;
 }
 .dark-theme {
   --font-color: #fff;
   --hover-color: #52b7ae;
   --main-color: #2c3138;
   --second-color: #384452;
+  --board-color-1: #151619;
+  --board-color-2: #38424a;
 }
 .up {
   margin: -100vh 0 0 0;
@@ -67,6 +71,7 @@ body {
 .game {
 }
 .game__title {
+  margin: 0 0 25px 0;
 }
 .game__board {
   position: relative;
@@ -75,16 +80,31 @@ body {
   align-items: center;
   height: 500px;
   width: 500px;
-  background: linear-gradient(118.3deg, #29323c -4.6%, #485563 200.44%);
+  background: linear-gradient(118.3deg, var(--board-color-1) -4.6%, var(--board-color-2) 200.44%);
   box-shadow: -8px -8px 20px #2a333d, 10px 7px 20px #475462;
   border-radius: 30px;
   overflow: hidden;
+}
+.game__score-title {
+  font-size: 52px;
+  color: #fff;
+}
+.game__score-title span {
+  color: #4ff126;
 }
 .circle {
   position: absolute;
   background-color: red;
   border-radius: 50%;
   cursor: pointer;
+}
+.circle img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 .theme-changer {
   position: fixed;
