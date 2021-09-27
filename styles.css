@@ -25,6 +25,10 @@ body {
 .up {
   margin: -100vh 0 0 0;
 }
+.hide {
+  opacity: 0;
+  visibility: hidden;
+}
 .title {
   font-size: 40px;
   letter-spacing: 3px;
@@ -88,6 +92,13 @@ body {
 .game__score-title {
   font-size: 52px;
   color: #fff;
+  transition: 0.4s ease all 0s;
+  transform: scale(0);
+  opacity: 1;
+}
+.game__score-title.active {
+  transform: scale(1);
+  opacity: 1;
 }
 .game__score-title span {
   color: #4ff126;

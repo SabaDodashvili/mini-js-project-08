@@ -36,11 +36,13 @@ const cucikebi = {
   vladebi: ['imgs/vladi/01.jpg', 'imgs/vladi/02.jpg'],
   finisebi: ['imgs/finisi/01.jpg', 'imgs/finisi/02.jpg', 'imgs/finisi/03.jpg', 'imgs/finisi/04.jpg', 'imgs/finisi/05.jpg'],
 };
+const colors = ['#12db12', '#e817ff', '#13dde8', '#fced17', '#ffa826'];
 const actionsBtns = document.querySelector('.game-manu__actions');
 const startBtn = document.querySelector('.welcome__start-btn');
 const leftTime = document.querySelector('.game__title span');
 const gameBoard = document.querySelector('.game__board');
 const screens = document.querySelectorAll('.full-screen');
+let end = Date.now() + 1 * 1000;
 let timeInterval;
 let time = 0;
 let score = 0;
@@ -107,7 +109,33 @@ function crateCircle() {
 function finishGame() {
   clearInterval(timeInterval);
   gameBoard.innerHTML = `<h3 class="game__score-title">score: <span>${score}</span></h3>`;
+  document.querySelector('.game__title').classList.add('hide');
+  setTimeout(() => {
+    gameBoard.firstElementChild.classList.add('active');
+  }, 0);
+  setTimeout(doConfetti, 400);
 }
 function getRandomNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
+}
+
+function doConfetti() {
+  confetti({
+    particleCount: 170,
+    angle: 70,
+    spread: 140,
+    origin: { x: 0 },
+    colors: colors,
+  });
+  confetti({
+    particleCount: 170,
+    angle: 140,
+    spread: 140,
+    origin: { x: 1 },
+    colors: colors,
+  });
+
+  if (Date.now() < end) {
+    requestAnimationFrame(frame);
+  }
 }
