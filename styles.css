@@ -99,6 +99,7 @@ body {
   transition: 0.3s;
 }
 .game {
+  position: relative;
 }
 .game__title {
   margin: 0 0 25px 0;
@@ -114,6 +115,7 @@ body {
   box-shadow: -8px -8px 20px #2a333d, 10px 7px 20px #475462;
   border-radius: 30px;
   overflow: hidden;
+  cursor: url(sniper-shooting-target.svg) 8 8, auto;
 }
 .game__score-title {
   font-size: 52px;
@@ -129,10 +131,43 @@ body {
 .game__score-title span {
   color: #4ff126;
 }
+.game__popup {
+  position: absolute;
+  height: 300px;
+  width: 400px;
+  top: 50%;
+  left: 50%;
+  transition: 0.9s ease all 0s;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+.game__popup.open {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.popup {
+}
+.popup__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.popup__text {
+  background-color: #fff;
+  position: absolute;
+  z-index: 1;
+  top: -65px;
+  left: 0;
+  color: #000;
+  font-size: 17px;
+  padding: 10px;
+}
 .circle {
   position: absolute;
   border-radius: 50%;
-  cursor: pointer;
   z-index: 2;
   overflow: hidden;
 }

@@ -137,6 +137,9 @@ function finishGame() {
     gameBoard.firstElementChild.classList.add('active');
   }, 0);
   setTimeout(doConfetti, 400);
+  setTimeout(() => {
+    document.querySelector('.game__popup').classList.add('open');
+  }, 2500);
 }
 function getRangeRandomNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
