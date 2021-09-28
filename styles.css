@@ -55,6 +55,32 @@ body {
   letter-spacing: 4px;
   color: inherit;
 }
+.welcome__game-rules {
+}
+.game-rules {
+}
+.game-rules__list {
+  display: flex;
+}
+.game-rules__item {
+  position: relative;
+  margin: 0 7px;
+  flex: 1;
+  min-height: 200px;
+  margin: 0 0 70px 0;
+}
+.game-rules__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.game-rules__descr {
+  margin: -50px 0 0 0;
+  text-transform: none;
+}
 .game-manu {
 }
 .game-manu__title {
@@ -105,9 +131,10 @@ body {
 }
 .circle {
   position: absolute;
-  background-color: red;
   border-radius: 50%;
   cursor: pointer;
+  z-index: 2;
+  overflow: hidden;
 }
 .circle img {
   position: absolute;
@@ -116,6 +143,7 @@ body {
   height: 100%;
   width: 100%;
   object-fit: cover;
+  z-index: -1;
 }
 .theme-changer {
   position: fixed;

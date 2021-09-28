@@ -22,8 +22,8 @@ function initialState(themeName) {
 
 localStorage.getItem('theme') !== 'null' ? initialState(localStorage.getItem('theme')) : initialState('light-theme');
 //=========================================== T H E M E  C H A N G E R ==================================================
-const cucikebi = {
-  gregorebi: [
+const cucikebi = [
+  [
     'imgs/gregori/01.jpg',
     'imgs/gregori/02.jpg',
     'imgs/gregori/03.jpg',
@@ -32,10 +32,10 @@ const cucikebi = {
     'imgs/gregori/06.jpg',
     'imgs/gregori/07.jpg',
   ],
-  uchavebi: ['imgs/uchava/01.jpg', 'imgs/uchava/02.jpg', 'imgs/uchava/03.jpg', 'imgs/uchava/04.jpg'],
-  vladebi: ['imgs/vladi/01.jpg', 'imgs/vladi/02.jpg'],
-  finisebi: ['imgs/finisi/01.jpg', 'imgs/finisi/02.jpg', 'imgs/finisi/03.jpg', 'imgs/finisi/04.jpg', 'imgs/finisi/05.jpg'],
-};
+  ['imgs/uchava/01.jpg', 'imgs/uchava/02.jpg', 'imgs/uchava/03.jpg', 'imgs/uchava/04.jpg'],
+  ['imgs/finisi/01.jpg', 'imgs/finisi/02.jpg', 'imgs/finisi/03.jpg', 'imgs/finisi/04.jpg', 'imgs/finisi/05.jpg'],
+];
+const vladebi = ['imgs/vladi/01.jpg', 'imgs/vladi/02.jpg'];
 const colors = ['#12db12', '#e817ff', '#13dde8', '#fced17', '#ffa826'];
 const actionsBtns = document.querySelector('.game-manu__actions');
 const startBtn = document.querySelector('.welcome__start-btn');
@@ -55,10 +55,20 @@ startBtn.addEventListener('click', (e) => {
 actionsBtns.addEventListener('click', chooseTime);
 
 gameBoard.addEventListener('click', (e) => {
-  if (e.target.classList.contains('circle')) {
-    score++;
-    e.target.remove();
+  if (e.target.closest('.circle')) {
+    gameBoard.innerHTML = '';
     crateCircle();
+    crateCircle(true);
+    currentUrl = e.target.getAttribute('src');
+    if (/finisi/.test(currentUrl)) {
+      score += 3;
+    } else if (/uchava/.test(currentUrl)) {
+      score += 2;
+    } else if (/gregori/.test(currentUrl)) {
+      score++;
+    } else if (/vladi/.test(currentUrl)) {
+      score -= 2;
+    }
   }
 });
 
@@ -75,6 +85,7 @@ function chooseTime(e) {
 function startGame() {
   timeInterval = setInterval(decreaseTime, 1000);
   crateCircle();
+  crateCircle(true);
 }
 
 function decreaseTime() {
@@ -90,18 +101,30 @@ function decreaseTime() {
   }
 }
 
-function crateCircle() {
+function crateCircle(isVlad) {
   let circle = document.createElement('div');
-  let size = getRandomNumber(25, 50);
+
+  let randomCucikaArr;
+  let randomCucikaUrl;
+
+  if (isVlad) {
+    randomCucikaUrl = vladebi[getRandomNumber(vladebi.length)];
+  } else {
+    randomCucikaArr = cucikebi[getRandomNumber(cucikebi.length)];
+    randomCucikaUrl = randomCucikaArr[getRandomNumber(cucikebi.length)];
+  }
+
+  let size = getRangeRandomNumber(25, 50);
   let { width, height } = gameBoard.getBoundingClientRect();
-  const x = getRandomNumber(0, width - size);
-  const y = getRandomNumber(0, height - size);
+  const x = getRangeRandomNumber(0, width - size);
+  const y = getRangeRandomNumber(0, height - size);
 
   circle.classList.add('circle');
   circle.style.width = `${size}px`;
   circle.style.height = `${size}px`;
   circle.style.top = `${y}px`;
   circle.style.left = `${x}px`;
+  circle.insertAdjacentHTML('afterBegin', `<img src=${randomCucikaUrl} alt="" />`);
 
   gameBoard.append(circle);
 }
@@ -115,8 +138,12 @@ function finishGame() {
   }, 0);
   setTimeout(doConfetti, 400);
 }
-function getRandomNumber(min, max) {
+function getRangeRandomNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
+}
+
+function getRandomNumber(number) {
+  return Math.floor(Math.random() * number);
 }
 
 function doConfetti() {
