@@ -22,21 +22,9 @@ function initialState(themeName) {
 
 localStorage.getItem('theme') !== 'null' ? initialState(localStorage.getItem('theme')) : initialState('light-theme');
 //=========================================== T H E M E  C H A N G E R ==================================================
-const cucikebi = [
-  [
-    'imgs/gregori/01.jpg',
-    'imgs/gregori/02.jpg',
-    'imgs/gregori/03.jpg',
-    'imgs/gregori/04.jpg',
-    'imgs/gregori/05.jpg',
-    'imgs/gregori/06.jpg',
-    'imgs/gregori/07.jpg',
-  ],
-  ['imgs/uchava/01.jpg', 'imgs/uchava/02.jpg', 'imgs/uchava/03.jpg', 'imgs/uchava/04.jpg'],
-  ['imgs/finisi/01.jpg', 'imgs/finisi/02.jpg', 'imgs/finisi/03.jpg', 'imgs/finisi/04.jpg', 'imgs/finisi/05.jpg'],
-];
-const vladebi = ['imgs/vladi/01.jpg', 'imgs/vladi/02.jpg'];
 const colors = ['#12db12', '#e817ff', '#13dde8', '#fced17', '#ffa826'];
+const copsArr = ['imgs/cops/01.png', 'imgs/cops/02.png', 'imgs/cops/03.png', 'imgs/cops/04.png'];
+const terroristsArr = ['imgs/terrorists/01.png', 'imgs/terrorists/02.png', 'imgs/terrorists/03.png', 'imgs/terrorists/04.png'];
 const actionsBtns = document.querySelector('.game-manu__actions');
 const startBtn = document.querySelector('.welcome__start-btn');
 const leftTime = document.querySelector('.game__title span');
@@ -60,14 +48,10 @@ gameBoard.addEventListener('click', (e) => {
     crateCircle();
     crateCircle(true);
     currentUrl = e.target.getAttribute('src');
-    if (/finisi/.test(currentUrl)) {
-      score += 3;
-    } else if (/uchava/.test(currentUrl)) {
-      score += 2;
-    } else if (/gregori/.test(currentUrl)) {
-      score++;
-    } else if (/vladi/.test(currentUrl)) {
-      score -= 2;
+    if (/terrorists/.test(currentUrl)) {
+      score += 1;
+    } else if (/cops/.test(currentUrl)) {
+      score -= 1;
     }
   }
 });
@@ -101,18 +85,10 @@ function decreaseTime() {
   }
 }
 
-function crateCircle(isVlad) {
+function crateCircle(isTrue) {
   let circle = document.createElement('div');
 
-  let randomCucikaArr;
-  let randomCucikaUrl;
-
-  if (isVlad) {
-    randomCucikaUrl = vladebi[getRandomNumber(vladebi.length)];
-  } else {
-    randomCucikaArr = cucikebi[getRandomNumber(cucikebi.length)];
-    randomCucikaUrl = randomCucikaArr[getRandomNumber(cucikebi.length)];
-  }
+  let imgUrl = getRandomImageUrl(isTrue);
 
   let size = getRangeRandomNumber(25, 50);
   let { width, height } = gameBoard.getBoundingClientRect();
@@ -124,23 +100,19 @@ function crateCircle(isVlad) {
   circle.style.height = `${size}px`;
   circle.style.top = `${y}px`;
   circle.style.left = `${x}px`;
-  circle.insertAdjacentHTML('afterBegin', `<img src=${randomCucikaUrl} alt="" />`);
+  circle.insertAdjacentHTML('afterbegin', `<img src=${imgUrl} alt="">`);
 
   gameBoard.append(circle);
 }
 
-function finishGame() {
-  clearInterval(timeInterval);
-  gameBoard.innerHTML = `<h3 class="game__score-title">score: <span>${score}</span></h3>`;
-  document.querySelector('.game__title').classList.add('hide');
-  setTimeout(() => {
-    gameBoard.firstElementChild.classList.add('active');
-  }, 0);
-  setTimeout(doConfetti, 400);
-  setTimeout(() => {
-    document.querySelector('.game__popup').classList.add('open');
-  }, 2500);
+function getRandomImageUrl(isCops) {
+  if (isCops) {
+    return copsArr[getRandomNumber(4)];
+  } else {
+    return terroristsArr[getRandomNumber(4)];
+  }
 }
+
 function getRangeRandomNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
@@ -168,4 +140,14 @@ function doConfetti() {
   if (Date.now() < end) {
     requestAnimationFrame(frame);
   }
+}
+
+function finishGame() {
+  clearInterval(timeInterval);
+  gameBoard.innerHTML = `<h3 class="game__score-title">score: <span>${score}</span></h3>`;
+  document.querySelector('.game__title').classList.add('hide');
+  setTimeout(() => {
+    gameBoard.firstElementChild.classList.add('active');
+  }, 0);
+  setTimeout(doConfetti, 400);
 }

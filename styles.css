@@ -55,32 +55,6 @@ body {
   letter-spacing: 4px;
   color: inherit;
 }
-.welcome__game-rules {
-}
-.game-rules {
-}
-.game-rules__list {
-  display: flex;
-}
-.game-rules__item {
-  position: relative;
-  margin: 0 7px;
-  flex: 1;
-  min-height: 200px;
-  margin: 0 0 70px 0;
-}
-.game-rules__image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-.game-rules__descr {
-  margin: -50px 0 0 0;
-  text-transform: none;
-}
 .game-manu {
 }
 .game-manu__title {
@@ -88,6 +62,7 @@ body {
 }
 .game-manu__actions {
   display: flex;
+  margin: 0 0 100px 0;
 }
 .game-manu__time-btn {
   font-size: 20px;
@@ -97,6 +72,42 @@ body {
   border-radius: 3px;
   margin: 0 10px;
   transition: 0.3s;
+}
+
+.game-regulations {
+  width: 660px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.game-regulations__row {
+  position: relative;
+}
+.game-regulations__descr {
+  position: absolute;
+  color: var(--font-color);
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.game-regulations__list {
+  display: flex;
+  align-items: center;
+  margin: 0 48px;
+}
+.game-regulations__item {
+  position: relative;
+  height: 62px;
+  width: 62px;
+  margin: 0 5px;
+}
+.game-regulations__item img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
 }
 .game {
   position: relative;
@@ -130,40 +141,6 @@ body {
 }
 .game__score-title span {
   color: #4ff126;
-}
-.game__popup {
-  position: absolute;
-  height: 300px;
-  width: 400px;
-  top: 50%;
-  left: 50%;
-  transition: 0.9s ease all 0s;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0);
-}
-.game__popup.open {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-.popup {
-}
-.popup__img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-.popup__text {
-  background-color: #fff;
-  position: absolute;
-  z-index: 1;
-  top: -65px;
-  left: 0;
-  color: #000;
-  font-size: 17px;
-  padding: 10px;
 }
 .circle {
   position: absolute;
