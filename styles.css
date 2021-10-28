@@ -13,6 +13,7 @@ body {
   --second-color: #5e94d4;
   --board-color-1: #429bc5;
   --board-color-2: #6c7c86;
+  --button-color: #58dd68;
 }
 .dark-theme {
   --font-color: #fff;
@@ -21,9 +22,13 @@ body {
   --second-color: #384452;
   --board-color-1: #151619;
   --board-color-2: #38424a;
+  --button-color: #1ba78d;
 }
 .up {
   margin: -100vh 0 0 0;
+}
+.down {
+  margin: 0 0 -100vh 0;
 }
 .hide {
   opacity: 0;
@@ -114,6 +119,7 @@ body {
 }
 .game__title {
   margin: 0 0 25px 0;
+  transition-delay: 0.4s;
 }
 .game__board {
   position: relative;
@@ -127,6 +133,35 @@ body {
   border-radius: 30px;
   overflow: hidden;
   cursor: url(sniper-shooting-target.svg) 8 8, auto;
+}
+.replay-popup {
+  height: 100px;
+  width: 210px;
+  background: var(--button-color);
+  position: absolute;
+  border-radius: 24px;
+  top: 55px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.8s;
+}
+.replay-popup.open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+.replay-popup__button {
+  font-size: 25px;
+  font-weight: 700;
+  transition: 0.3s;
+  cursor: pointer;
+  color: var(--font-color);
 }
 .game__score-title {
   font-size: 52px;
@@ -173,5 +208,8 @@ body {
   }
   .game-manu__time-btn:hover {
     border-color: var(--hover-color);
+  }
+  .replay-popup__button:hover {
+    color: var(--hover-color);
   }
 }

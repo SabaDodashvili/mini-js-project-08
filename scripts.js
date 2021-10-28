@@ -54,6 +54,14 @@ gameBoard.addEventListener('click', (e) => {
       score -= 1;
     }
   }
+  if (e.target.classList.contains('replay-popup__button')) {
+    e.target.closest('.full-screen').previousElementSibling.classList.remove('up');
+    e.target.parentElement.classList.remove('open');
+    leftTime.parentElement.classList.remove('hide');
+    gameBoard.innerHTML = '';
+    score = 0;
+    time = 0;
+  }
 });
 
 function chooseTime(e) {
@@ -144,10 +152,18 @@ function doConfetti() {
 
 function finishGame() {
   clearInterval(timeInterval);
-  gameBoard.innerHTML = `<h3 class="game__score-title">score: <span>${score}</span></h3>`;
+  gameBoard.innerHTML = `
+	<div class="game__popup replay-popup">
+    <button class="replay-popup__button">Play Again</button>
+  </div>
+	<h3 class="game__score-title">score: <span>${score}</span></h3>
+	`;
   document.querySelector('.game__title').classList.add('hide');
   setTimeout(() => {
-    gameBoard.firstElementChild.classList.add('active');
+    gameBoard.lastElementChild.classList.add('active');
   }, 0);
+  setTimeout(() => {
+    gameBoard.firstElementChild.classList.add('open');
+  }, 1500);
   setTimeout(doConfetti, 400);
 }
