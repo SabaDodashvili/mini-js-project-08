@@ -34,6 +34,10 @@ let end = Date.now() + 1 * 1000;
 let timeInterval;
 let time = 0;
 let score = 0;
+let firstModeRecord = 0,
+  secondModeRecord = 0;
+thirdModeRecord = 0;
+fourthModeRecord = 0;
 
 startBtn.addEventListener('click', (e) => {
   const currentScreen = e.target.closest('.full-screen');
@@ -70,21 +74,31 @@ function chooseTime(e) {
     let seconds = parseInt(e.target.getAttribute('data-time'));
     time = seconds;
     currentScreen.classList.add('up');
-    startGame();
+    if (time === 10) {
+      startGame('firstMode');
+    } else if (time === 20) {
+      startGame('secondMode');
+    } else if (time === 30) {
+      startGame('thirdMode');
+    } else if (time === 60) {
+      startGame('fourthMode');
+    }
   }
 }
 
-function startGame() {
-  timeInterval = setInterval(decreaseTime, 1000);
+function startGame(currentMode) {
+  timeInterval = setInterval(() => {
+    decreaseTime(currentMode);
+  }, 1000);
   crateCircle();
   crateCircle(true);
 }
 
-function decreaseTime() {
+function decreaseTime(currentMode) {
   time--;
   if (time === 0) {
     leftTime.textContent = `00:0${time}`;
-    finishGame();
+    finishGame(currentMode);
   }
   if (time >= 10) {
     leftTime.textContent = `00:${time}`;
@@ -150,7 +164,7 @@ function doConfetti() {
   }
 }
 
-function finishGame() {
+function finishGame(currentMode) {
   clearInterval(timeInterval);
   gameBoard.innerHTML = `
 	<div class="game__popup replay-popup">
@@ -165,5 +179,18 @@ function finishGame() {
   setTimeout(() => {
     gameBoard.firstElementChild.classList.add('open');
   }, 1500);
-  setTimeout(doConfetti, 400);
+
+  if (currentMode === 'firstMode') {
+    score > firstModeRecord ? setTimeout(doConfetti, 400) : '';
+    firstModeRecord = score > firstModeRecord ? score : firstModeRecord;
+  } else if (currentMode === 'secondMode') {
+    score > secondModeRecord ? setTimeout(doConfetti, 400) : '';
+    secondModeRecord = score > secondModeRecord ? score : secondModeRecord;
+  } else if (currentMode === 'thirdMode') {
+    score > thirdModeRecord ? setTimeout(doConfetti, 400) : '';
+    thirdModeRecord = score > thirdModeRecord ? score : thirdModeRecord;
+  } else if (currentMode === 'fourthMode') {
+    score > fourthModeRecord ? setTimeout(doConfetti, 400) : '';
+    fourthModeRecord = score > fourthModeRecord ? score : fourthModeRecord;
+  }
 }
